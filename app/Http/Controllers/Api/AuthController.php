@@ -14,11 +14,15 @@ class AuthController extends Controller {
             'password' => 'required'
         ]);
 
-        if (!Auth::attempt($credentials)) {
-            return response()->json(['message' => 'Invalid credentials'], 401);
+        $user = User::where('email', $credentials['email'])->first();
+        if (!$user) {
+            return response()->json(['message' => "Email doesn't exist"], 401);
         }
 
-        $user = User::where('email', $credentials['email'])->firstOrFail();
+        if (!Auth::attempt($credentials)) {
+            return response()->json(['message' => 'Password is incorrect'], 401);
+        }
+
         $token = $user->createToken('api-token')->plainTextToken;
 
         return response()->json([
