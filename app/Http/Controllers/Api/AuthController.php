@@ -19,7 +19,7 @@ class AuthController extends Controller {
             return response()->json(['message' => "Email doesn't exist"], 401);
         }
 
-        if (!Auth::attempt($credentials)) {
+        if (!Auth::guard('web')->attempt($credentials)) {
             return response()->json(['message' => 'Password is incorrect'], 401);
         }
 
