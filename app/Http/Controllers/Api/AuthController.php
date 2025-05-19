@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller {
     public function login(Request $request) {
@@ -19,7 +20,8 @@ class AuthController extends Controller {
             return response()->json(['message' => "Email doesn't exist"], 401);
         }
 
-        if (!Auth::guard('web')->attempt($credentials)) {
+        // Manually check password for API
+        if (!Hash::check($credentials['password'], $user->password)) {
             return response()->json(['message' => 'Password is incorrect'], 401);
         }
 
