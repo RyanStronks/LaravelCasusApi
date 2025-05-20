@@ -20,12 +20,12 @@ class AuthController extends Controller {
             return response()->json(['message' => "Email doesn't exist"], 401);
         }
 
-        // Manually check password for API
         if (!Hash::check($credentials['password'], $user->password)) {
             return response()->json(['message' => 'Password is incorrect'], 401);
         }
 
-        $token = $user->createToken('api-token')->plainTextToken;
+        $token = $user->createToken('user-token')->plainTextToken;
+
 
         return response()->json([
             'user' => $user,
