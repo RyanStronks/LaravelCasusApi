@@ -10,7 +10,8 @@ return new class extends Migration {
      */
     public function up(): void {
         Schema::create('personal_access_tokens', function (Blueprint $table) {
-            $table->uuid('id')->primary();
+            $table->uuid('id');
+            $table->primary('id');
             $table->morphs('tokenable');
             $table->string('name');
             $table->string('token', 64)->unique();
