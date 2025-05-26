@@ -21,5 +21,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('/games/{id}', [GameController::class, 'destroy']);
 });
 
+Route::middleware('auth:sanctum')->get('/verification', function () {
+    return response()->json(['status' => 'ok']);
+});
+
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'register']);
