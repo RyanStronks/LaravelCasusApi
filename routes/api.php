@@ -28,5 +28,7 @@ Route::middleware('auth:sanctum')->get('/verification', function () {
 
 Route::middleware('auth:sanctum')->post('/upload-image', [ImageController::class, 'uploadImage']);
 
+Route::get('/storage/games/{filename}', [ImageController::class, 'showGameImage']);
+
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'register']);
