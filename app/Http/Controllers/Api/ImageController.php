@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 
@@ -12,6 +13,11 @@ class ImageController extends Controller {
         $path = 'public/games/' . $filename;
 
         if (!Storage::exists($path)) {
+            Log::warning('Image not found', [
+                'path_checked' => $path,
+                'exists' => Storage::exists($path),
+                'files' => Storage::files('public/games')
+            ]);
             return response()->json([
                 'error' => 'File not found.',
                 'path_checked' => $path,
