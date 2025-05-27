@@ -12,7 +12,12 @@ class ImageController extends Controller {
         $path = 'public/games/' . $filename;
 
         if (!Storage::exists($path)) {
-            return response()->json(['error' => 'File not found.'], 404);
+            return response()->json([
+                'error' => 'File not found.',
+                'path_checked' => $path,
+                'exists' => Storage::exists($path),
+                'files' => Storage::files('public/games')
+            ], 404);
         }
 
         $file = Storage::get($path);
