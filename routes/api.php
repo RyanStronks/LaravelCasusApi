@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\GameController;
+use App\Http\Controllers\Api\ImageController;
 use App\Http\Controllers\Api\UserController;
 
 Route::middleware('auth:sanctum')->group(function () {
@@ -24,6 +25,8 @@ Route::middleware('auth:sanctum')->group(function () {
 Route::middleware('auth:sanctum')->get('/verification', function () {
     return response()->json(['status' => 'ok']);
 });
+
+Route::middleware('auth:sanctum')->post('/upload-image', [ImageController::class, 'uploadImage']);
 
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'register']);
