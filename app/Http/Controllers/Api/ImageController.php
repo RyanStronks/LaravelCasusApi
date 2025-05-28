@@ -26,7 +26,7 @@ class ImageController extends Controller {
             ], 404);
         }
 
-        $file = Storage::get($path);
+        $file = Storage::disk('public')->get($path);
         $type = Storage::mimeType($path);
 
         return response($file, 200)->header('Content-Type', $type);
