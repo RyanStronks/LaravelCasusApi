@@ -32,6 +32,15 @@ Route::get('/debug/storage-files', function () {
     ]);
 });
 
+Route::get('/debug/os-files', function () {
+    return response()->json([
+        'scandir' => scandir(storage_path('app/public/games')),
+        'realpath' => realpath(storage_path('app/public/games')),
+        'is_dir' => is_dir(storage_path('app/public/games')),
+        'can_read' => is_readable(storage_path('app/public/games')),
+    ]);
+});
+
 Route::middleware('auth:sanctum')->post('/upload-image', [ImageController::class, 'uploadImage']);
 
 
