@@ -26,7 +26,14 @@ Route::middleware('auth:sanctum')->get('/verification', function () {
     return response()->json(['status' => 'ok']);
 });
 
+Route::get('/debug/storage-files', function () {
+    return response()->json([
+        'files' => \Illuminate\Support\Facades\Storage::files('public/games')
+    ]);
+});
+
 Route::middleware('auth:sanctum')->post('/upload-image', [ImageController::class, 'uploadImage']);
+
 
 Route::get('/storage/games/{filename}', [ImageController::class, 'showGameImage']);
 
