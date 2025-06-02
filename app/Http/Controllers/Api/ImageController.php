@@ -10,24 +10,24 @@ use Illuminate\Support\Facades\Storage;
 
 class ImageController extends Controller {
     public function showGameImage($filename) {
-        $path = 'public/games/' . $filename;
+        $path = 'games/' . $filename;
 
-        if (!Storage::exists($path)) {
+        if (!Storage::disk('public')->exists($path)) {
             Log::warning('Image not found', [
                 'path_checked' => $path,
-                'exists' => Storage::exists($path),
-                'files' => Storage::files('public/games')
+                'exists' => Storage::disk('public')->exists($path),
+                'files' => Storage::disk('public')->files('games')
             ]);
             return response()->json([
                 'error' => 'File not found.',
                 'path_checked' => $path,
-                'exists' => Storage::exists($path),
-                'files' => Storage::files('public/games')
+                'exists' => Storage::disk('public')->exists($path),
+                'files' => Storage::disk('public')->files('games')
             ], 404);
         }
 
         $file = Storage::disk('public')->get($path);
-        $type = Storage::mimeType($path);
+        $type = Storage::disk('public')->mimeType($path);
 
         return response($file, 200)->header('Content-Type', $type);
     }
