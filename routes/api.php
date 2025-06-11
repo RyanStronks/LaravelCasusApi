@@ -14,23 +14,20 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('/users/{id}', [UserController::class, 'destroy']);
 });
 
-Route::middleware('auth:sanctum')->group(function () {
-    Route::get('/games', [GameController::class, 'index']);
-    Route::post('/games', [GameController::class, 'store']);
-    Route::get('/games/{id}', [GameController::class, 'show']);
-    Route::put('/games/{id}', [GameController::class, 'update']);
-    Route::delete('/games/{id}', [GameController::class, 'destroy']);
 
-    Route::post('/upload-image', [ImageController::class, 'uploadImage']);
-    Route::get('/storage/games/{filename}', [ImageController::class, 'showGameImage']);
-});
+Route::get('/games', [GameController::class, 'index']);
+Route::post('/games', [GameController::class, 'store']);
+Route::get('/games/{id}', [GameController::class, 'show']);
+Route::put('/games/{id}', [GameController::class, 'update']);
+Route::delete('/games/{id}', [GameController::class, 'destroy']);
+
+Route::post('/upload-image', [ImageController::class, 'uploadImage']);
+Route::get('/storage/games/{filename}', [ImageController::class, 'showGameImage']);
+
 
 Route::middleware('auth:sanctum')->get('/verification', function () {
     return response()->json(['status' => 'ok']);
 });
-
-
-Route::get('/storage/games/{filename}', [ImageController::class, 'showGameImage']);
 
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'register']);
